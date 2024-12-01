@@ -1,8 +1,7 @@
 package org.example;
 
 public class Main {
-    public static void main(String[] args) {
-        AddFileInCourse.AddFileInCourse_TC01();
-        AddFileInCourse.AddFileInCourse_TC02();
+    public static void main(String[] args) throws InterruptedException {
+        AddFileInCourse.run();
     }
 }

@@ -24,7 +24,7 @@ public class Precondition {
                 throw new RuntimeException("Could not find credentials.json file");
             }
         } catch (Exception e) {
-            e.printStackTrace();
+            System.out.println("Error reading loginData.json file: " + e.getMessage());
         }
     }
 
@@ -45,7 +45,7 @@ public class Precondition {
     }
 
     public static void loginAsPrivacyOfficer(WebDriver driver) {
-        login(driver, "privacyofficer");
+        login(driver, "privacyOfficer");
     }
 
     private static void login(WebDriver driver, String role) {

@@ -10,7 +10,15 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 
 public class AddFileInCourse {
-    public static void AddFileInCourse_TC01() {
+
+    public static void run() throws InterruptedException {
+        AddFileInCourse_TC01();
+        AddFileInCourse_TC02();
+        AddFileInCourse_TC03();
+        AddFileInCourse_TC04();
+    }
+
+    public static void AddFileInCourse_TC01() throws InterruptedException {
         System.out.println("AddFileInCourse_TC01");
         WebDriver driver = new ChromeDriver();
 
@@ -18,8 +26,6 @@ public class AddFileInCourse {
 
         // Wait for the course link to be clickable and click it
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement courseLink = wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Mindful course creation")));
-        courseLink.click();
 
         // Add file resource
         WebElement addFileButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[4]/div[5]/div/div[3]/div/section/div/div/div/ul/li[5]/div[1]/div[2]/div[2]/div/div/button")));
@@ -46,7 +52,7 @@ public class AddFileInCourse {
         WebElement uploadInteraction = driver.findElement(By.linkText("ccc.png"));
         uploadInteraction.click();
 
-        WebDriverWait waitUpload = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebDriverWait waitUpload = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement uploadFile = waitUpload.until(ExpectedConditions.elementToBeClickable(By.className("fp-select-confirm")));
         uploadFile.click();
 
@@ -70,16 +76,6 @@ public class AddFileInCourse {
 
         // Wait for the course link to be clickable and click it
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement courseLink = wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Mindful course creation")));
-        courseLink.click();
-
-        System.out.println("Page title is: " + driver.getTitle());
-        System.out.println("Current URL: " + driver.getCurrentUrl());
-
-        // Enable editing mode
-        driver.manage().timeouts().implicitlyWait(2, java.util.concurrent.TimeUnit.SECONDS);
-        WebElement setModeButton = driver.findElement(By.cssSelector("input[name*='setmode']"));
-        setModeButton.click();
 
         // Add file resource
         WebElement addFileButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[4]/div[5]/div/div[3]/div/section/div/div/div/ul/li[5]/div[1]/div[2]/div[2]/div/div/button")));
@@ -127,16 +123,6 @@ public class AddFileInCourse {
 
         // Wait for the course link to be clickable and click it
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement courseLink = wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Mindful course creation")));
-        courseLink.click();
-
-        System.out.println("Page title is: " + driver.getTitle());
-        System.out.println("Current URL: " + driver.getCurrentUrl());
-
-        // Enable editing mode
-        driver.manage().timeouts().implicitlyWait(2, java.util.concurrent.TimeUnit.SECONDS);
-        WebElement setModeButton = driver.findElement(By.cssSelector("input[name*='setmode']"));
-        setModeButton.click();
 
         // Add file resource
         WebElement addFileButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[4]/div[5]/div/div[3]/div/section/div/div/div/ul/li[5]/div[1]/div[2]/div[2]/div/div/button")));
@@ -172,16 +158,6 @@ public class AddFileInCourse {
 
         // Wait for the course link to be clickable and click it
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement courseLink = wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Mindful course creation")));
-        courseLink.click();
-
-        System.out.println("Page title is: " + driver.getTitle());
-        System.out.println("Current URL: " + driver.getCurrentUrl());
-
-        // Enable editing mode
-        driver.manage().timeouts().implicitlyWait(2, java.util.concurrent.TimeUnit.SECONDS);
-        WebElement setModeButton = driver.findElement(By.cssSelector("input[name*='setmode']"));
-        setModeButton.click();
 
         // Add file resource
         WebElement addFileButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[4]/div[5]/div/div[3]/div/section/div/div/div/ul/li[5]/div[1]/div[2]/div[2]/div/div/button")));
