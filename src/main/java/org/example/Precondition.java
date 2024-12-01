@@ -59,8 +59,6 @@ public class Precondition {
         System.out.println("Password: " + password);
 
         driver.get("https://school.moodledemo.net/login/index.php");
-        System.out.println("Page title is: " + driver.getTitle());
-        System.out.println("Current URL: " + driver.getCurrentUrl());
 
         driver.findElement(By.id("username")).sendKeys(username);
         driver.findElement(By.id("password")).sendKeys(password);
@@ -69,9 +67,6 @@ public class Precondition {
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         WebElement courseLink = wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Mindful course creation")));
         courseLink.click();
-
-        System.out.println("Page title is: " + driver.getTitle());
-        System.out.println("Current URL: " + driver.getCurrentUrl());
 
         driver.manage().timeouts().implicitlyWait(2, java.util.concurrent.TimeUnit.SECONDS);
         WebElement setModeButton = driver.findElement(By.cssSelector("input[name*='setmode']"));
