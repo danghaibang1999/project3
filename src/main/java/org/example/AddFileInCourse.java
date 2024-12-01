@@ -185,7 +185,7 @@ public class AddFileInCourse {
         WebElement errorText = driver.findElement(By.id("id_error_name"));
 
         System.out.println("Error text: " + errorText.getText());
-        // Close the browser
+
         driver.close();
         driver.quit();
     }
