@@ -1,0 +1,22 @@
+{
+  "teacher": {
+    "username": "teacher",
+    "password": "moodle2024"
+  },
+  "student": {
+    "username": "student",
+    "password": "moodle2024"
+  },
+  "manager": {
+    "username": "manager",
+    "password": "moodle2024"
+  },
+  "parent": {
+    "username": "parent",
+    "password": "moodle2024"
+  },
+  "privacyOfficer": {
+    "username": "privacyofficer",
+    "password": "moodle2024"
+  }
+}
