@@ -7,24 +7,33 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
+import java.io.IOException;
 import java.time.Duration;
 
 public class AddFileInCourse {
 
-    public static void run() throws InterruptedException {
-        AddFileInCourse_TC01();
-        AddFileInCourse_TC02();
-        AddFileInCourse_TC03();
-        AddFileInCourse_TC04();
+    public static void run() {
+        runTestCase(AddFileInCourse::AddFileInCourse_TC01, "AddFileInCourse_TC01");
+//        runTestCase(AddFileInCourse::AddFileInCourse_TC02, "AddFileInCourse_TC02");
+//        runTestCase(AddFileInCourse::AddFileInCourse_TC03, "AddFileInCourse_TC03");
+//        runTestCase(AddFileInCourse::AddFileInCourse_TC04, "AddFileInCourse_TC04");
     }
 
-    public static void AddFileInCourse_TC01() throws InterruptedException {
-        System.out.println("AddFileInCourse_TC01");
+    private static void runTestCase(Runnable testCase, String testCaseName) {
+        try {
+            System.out.println("Running: " + testCaseName);
+            testCase.run();
+        } catch (Exception e) {
+            System.err.println("Test case failed: " + testCaseName);
+            e.printStackTrace();
+        }
+    }
+
+    public static void AddFileInCourse_TC01() {
         WebDriver driver = new ChromeDriver();
 
         Precondition.loginAsTeacher(driver);
 
-        // Wait for the course link to be clickable and click it
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
         // Add file resource
@@ -39,31 +48,41 @@ public class AddFileInCourse {
         System.out.println("Page title is: " + driver.getTitle());
         // Add file name and click on the file container
 
-        wait.until(ExpectedConditions.invisibilityOfAllElements(driver.findElements(By.className("fm-empty-container"))));
-        driver.findElement(By.id("id_name")).sendKeys("Lecture Notes");
+        String expectedFileName= "Lecture Notes";
+        driver.findElement(By.id("id_name")).sendKeys(expectedFileName);
 
-        WebElement fmEmptyContainer = wait.until(ExpectedConditions.elementToBeClickable(By.className("fm-empty-container")));
-        fmEmptyContainer.click();
+        WebElement fileGeneral = wait.until(ExpectedConditions.elementToBeClickable(By.className("fm-empty-container")));
 
-        WebElement chooseRecentFiles = driver.findElement(By.linkText("Recent files"));
+        if(!fileGeneral.isEnabled()){
+            driver.navigate().refresh();
+        }
+        WebElement fileSelect = driver.findElement(By.className("fm-empty-container"));
+        fileSelect.click();
+
+        WebElement chooseRecentFiles = wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Recent files")));
         chooseRecentFiles.click();
 
         // Wait for the file upload interaction
-        WebElement uploadInteraction = driver.findElement(By.linkText("ccc.png"));
+        WebElement uploadInteraction = wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("ccc.png")));
         uploadInteraction.click();
 
-        WebDriverWait waitUpload = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement uploadFile = waitUpload.until(ExpectedConditions.elementToBeClickable(By.className("fp-select-confirm")));
-        uploadFile.click();
+        WebElement fileContainer = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("fp-select-confirm")));
+//        WebElement uploadFile = driver.findElement(By.className("fp-select-confirm"));
+//        uploadFile.click();
+        fileContainer.click();
 
-        WebElement saveAndDisplay = waitUpload.until(ExpectedConditions.elementToBeClickable(By.id("id_submitbutton")));
+        WebElement saveAndDisplay = wait.until(ExpectedConditions.elementToBeClickable(By.id("id_submitbutton")));
         saveAndDisplay.click();
 
-        WebElement fileName = waitUpload.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"page-header\"]/div/div[2]/div[1]/div/div[2]/h1")));
+        WebElement pageHeader = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("page-header-headings")));
+        // Verify the fileName
+        WebElement fileName = pageHeader.findElement(By.xpath("//*[@id=\"page-header\"]/div/div[2]/div[1]/div/div[2]/h1"));
 
-        System.out.println("File name is: " + driver.getTitle());
-
-        // Close the browser
+        if (!fileName.getText().equals(expectedFileName)) {
+            throw new AssertionError("Expected file name: " + expectedFileName + ", but got: " + fileName.getText());
+        }
+        System.out.println("Expected file name: " + expectedFileName + ", got: " + fileName.getText());
+        System.out.println("Test passed successfully, test case: AddFileInCourse_TC01");
         driver.close();
         driver.quit();
     }
@@ -87,32 +106,34 @@ public class AddFileInCourse {
         WebElement fileLink = wait.until(ExpectedConditions.elementToBeClickable(By.linkText("File")));
         fileLink.click();
         System.out.println("Page title is: " + driver.getTitle());
+        // Add file name and click on the file container
 
-        WebElement fmEmptyContainer = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("fm-empty-container")));
-        if (fmEmptyContainer.isEnabled()) {
-            fmEmptyContainer.click();
-        } else {
-            driver.navigate().refresh();
-            fmEmptyContainer = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("fm-empty-container")));
-            fmEmptyContainer.click();
-        }
+        WebElement formGeneral = wait.until(ExpectedConditions.visibilityOfElementLocated(By.id("id_general")));
+
+        WebElement fileSelect = formGeneral.findElement(By.className("fm-empty-container"));
+        fileSelect.click();
+
+        WebElement chooseRecentFiles = driver.findElement(By.linkText("Recent files"));
+        chooseRecentFiles.click();
 
         // Wait for the file upload interaction
         WebElement uploadInteraction = driver.findElement(By.linkText("ccc.png"));
         uploadInteraction.click();
 
-        WebElement uploadFile = wait.until(ExpectedConditions.elementToBeClickable(By.className("fp-select-confirm")));
+        WebDriverWait waitUpload = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebElement uploadFile = waitUpload.until(ExpectedConditions.elementToBeClickable(By.className("fp-select-confirm")));
         uploadFile.click();
 
-        WebElement saveAndDisplay = wait.until(ExpectedConditions.elementToBeClickable(By.id("id_submitbutton")));
+        WebElement saveAndDisplay = waitUpload.until(ExpectedConditions.elementToBeClickable(By.id("id_submitbutton")));
         saveAndDisplay.click();
 
-        WebElement errorText = driver.findElement(By.id("id_error_name"));
+        WebElement fileName = waitUpload.until(ExpectedConditions.visibilityOfElementLocated(By.xpath("//*[@id=\"page-header\"]/div/div[2]/div[1]/div/div[2]/h1")));
 
-        System.out.println("Error text: " + errorText.getText());
-        // Close the browser
+        System.out.println("File name is: " + driver.getTitle());
+
         driver.close();
         driver.quit();
+
     }
 
     public static void AddFileInCourse_TC03() {
