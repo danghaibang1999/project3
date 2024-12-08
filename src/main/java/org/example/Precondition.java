@@ -64,12 +64,19 @@ public class Precondition {
         driver.findElement(By.id("password")).sendKeys(password);
         driver.findElement(By.id("loginbtn")).click();
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement courseLink = wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Mindful course creation")));
-        courseLink.click();
+        if (role.equals("teacher")) {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+            WebElement courseLink = wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Mindful course creation")));
+            courseLink.click();
 
-        driver.manage().timeouts().implicitlyWait(2, java.util.concurrent.TimeUnit.SECONDS);
-        WebElement setModeButton = driver.findElement(By.cssSelector("input[name*='setmode']"));
-        setModeButton.click();
+            driver.manage().timeouts().implicitlyWait(2, java.util.concurrent.TimeUnit.SECONDS);
+            WebElement setModeButton = driver.findElement(By.cssSelector("input[name*='setmode']"));
+            setModeButton.click();
+        } else if (role.equals("student")) {
+
+        } else if (role.equals("manager")) {
+
+        }
+
     }
 }

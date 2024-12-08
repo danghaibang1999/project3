@@ -7,16 +7,15 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.io.IOException;
 import java.time.Duration;
 
 public class AddFileInCourse {
 
     public static void run() {
         runTestCase(AddFileInCourse::AddFileInCourse_TC01, "AddFileInCourse_TC01");
-//        runTestCase(AddFileInCourse::AddFileInCourse_TC02, "AddFileInCourse_TC02");
-//        runTestCase(AddFileInCourse::AddFileInCourse_TC03, "AddFileInCourse_TC03");
-//        runTestCase(AddFileInCourse::AddFileInCourse_TC04, "AddFileInCourse_TC04");
+        runTestCase(AddFileInCourse::AddFileInCourse_TC02, "AddFileInCourse_TC02");
+        runTestCase(AddFileInCourse::AddFileInCourse_TC03, "AddFileInCourse_TC03");
+        runTestCase(AddFileInCourse::AddFileInCourse_TC04, "AddFileInCourse_TC04");
     }
 
     private static void runTestCase(Runnable testCase, String testCaseName) {
@@ -34,10 +33,7 @@ public class AddFileInCourse {
 
         Precondition.loginAsTeacher(driver);
 
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-
-        WebElement courseLink = wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Mindful course creation")));
-        courseLink.click();
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
         // Add file resource
         WebElement addFileButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[4]/div[5]/div/div[3]/div/section/div/div/div/ul/li[5]/div[1]/div[2]/div[2]/div/div/button")));
@@ -51,12 +47,12 @@ public class AddFileInCourse {
         System.out.println("Page title is: " + driver.getTitle());
         // Add file name and click on the file container
 
-        String expectedFileName= "Lecture Notes";
+        String expectedFileName = "Lecture Notes";
         driver.findElement(By.id("id_name")).sendKeys(expectedFileName);
 
         WebElement fileGeneral = wait.until(ExpectedConditions.elementToBeClickable(By.className("fm-empty-container")));
 
-        if(!fileGeneral.isEnabled()){
+        if (!fileGeneral.isEnabled()) {
             driver.navigate().refresh();
         }
         WebElement fileSelect = driver.findElement(By.className("fm-empty-container"));
@@ -97,7 +93,7 @@ public class AddFileInCourse {
         Precondition.loginAsTeacher(driver);
 
         // Wait for the course link to be clickable and click it
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
         // Add file resource
         WebElement addFileButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[4]/div[5]/div/div[3]/div/section/div/div/div/ul/li[5]/div[1]/div[2]/div[2]/div/div/button")));
@@ -123,7 +119,7 @@ public class AddFileInCourse {
         WebElement uploadInteraction = driver.findElement(By.linkText("ccc.png"));
         uploadInteraction.click();
 
-        WebDriverWait waitUpload = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait waitUpload = new WebDriverWait(driver, Duration.ofSeconds(30));
         WebElement uploadFile = waitUpload.until(ExpectedConditions.elementToBeClickable(By.className("fp-select-confirm")));
         uploadFile.click();
 
@@ -146,7 +142,7 @@ public class AddFileInCourse {
         Precondition.loginAsTeacher(driver);
 
         // Wait for the course link to be clickable and click it
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
         // Add file resource
         WebElement addFileButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[4]/div[5]/div/div[3]/div/section/div/div/div/ul/li[5]/div[1]/div[2]/div[2]/div/div/button")));
@@ -181,7 +177,7 @@ public class AddFileInCourse {
         Precondition.loginAsTeacher(driver);
 
         // Wait for the course link to be clickable and click it
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(30));
 
         // Add file resource
         WebElement addFileButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[4]/div[5]/div/div[3]/div/section/div/div/div/ul/li[5]/div[1]/div[2]/div[2]/div/div/button")));
