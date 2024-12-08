@@ -65,8 +65,6 @@ public class Precondition {
         driver.findElement(By.id("loginbtn")).click();
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        WebElement courseLink = wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Mindful course creation")));
-        courseLink.click();
 
         driver.manage().timeouts().implicitlyWait(2, java.util.concurrent.TimeUnit.SECONDS);
         WebElement setModeButton = driver.findElement(By.cssSelector("input[name*='setmode']"));

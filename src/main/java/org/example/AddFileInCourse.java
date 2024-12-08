@@ -36,6 +36,9 @@ public class AddFileInCourse {
 
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
 
+        WebElement courseLink = wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Mindful course creation")));
+        courseLink.click();
+
         // Add file resource
         WebElement addFileButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[4]/div[5]/div/div[3]/div/section/div/div/div/ul/li[5]/div[1]/div[2]/div[2]/div/div/button")));
         addFileButton.click();
@@ -63,7 +66,7 @@ public class AddFileInCourse {
         chooseRecentFiles.click();
 
         // Wait for the file upload interaction
-        WebElement uploadInteraction = wait.until(ExpectedConditions.visibilityOfElementLocated(By.linkText("ccc.png")));
+        WebElement uploadInteraction = wait.until(ExpectedConditions.elementToBeClickable(By.linkText("ccc.png")));
         uploadInteraction.click();
 
         WebElement fileContainer = wait.until(ExpectedConditions.visibilityOfElementLocated(By.className("fp-select-confirm")));

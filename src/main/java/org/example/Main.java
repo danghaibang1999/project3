@@ -6,7 +6,8 @@ public class Main {
     public static void main(String[] args) throws InterruptedException, IOException {
 
 //        CreateAssignment.run();
-                AddFileInCourse.run();
+//        AddFileInCourse.run();
 //        AddQuiz.AddQuizTestCases();
+        AddTopicToForum.run();
     }
 }
