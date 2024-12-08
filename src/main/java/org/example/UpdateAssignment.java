@@ -14,41 +14,38 @@ import java.time.Duration;
 import java.util.Map;
 import java.util.Objects;
 
-public class CreateAssignment {
+public class UpdateAssignment {
 
     public static void run() throws InterruptedException, IOException {
-        CreateAssignment_TC("TC01");
-        CreateAssignment_TC("TC02");
-        CreateAssignment_TC("TC03");
-        CreateAssignment_TC("TC04");
+        UpdateAssignment_TC("TC01");
+        UpdateAssignment_TC("TC02");
+        UpdateAssignment_TC("TC03");
+        UpdateAssignment_TC("TC04");
     }
 
-    public static void CreateAssignment_TC(String testCaseId) throws InterruptedException, IOException {
-        System.out.println("CreateAssignment_" + testCaseId);
+    public static void UpdateAssignment_TC(String testCaseId) throws InterruptedException, IOException {
+        System.out.println("UpdateAssignment_" + testCaseId);
 
         WebDriver driver = new ChromeDriver();
 
         Precondition.loginAsTeacher(driver);
 
         // Load test data
-        Map<String, TestData.TestCase> testDataMap = TestData.loadTestData(true);
+        Map<String, TestData.TestCase> testDataMap = TestData.loadTestData(false);
         TestData.TestCase testData = testDataMap.get(testCaseId);
         System.out.println("Description: " + testData.description);
 
-        // Wait for the course link to be clickable and click it
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
+        // Wait for the course link to be clickable and click it using JavaScript
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+        WebElement courseLink = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("//*[@id=\"module-980\"]/div[2]/div[2]/div[2]/div/div/span/a[1]")));
+        if (courseLink.isDisplayed() && courseLink.isEnabled()) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", courseLink);
+        }
 
-        // Add file resource
-        WebElement addFileButton = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[4]/div[5]/div/div[3]/div/section/div/div/div/ul/li[5]/div[1]/div[2]/div[2]/div/div/button")));
-        addFileButton.click();
-
-        WebElement fileOption = wait.until(ExpectedConditions.elementToBeClickable(By.xpath("/html/body/div[4]/div[5]/div/div[3]/div/section/div/div/div/ul/li[5]/div[1]/div[2]/div[2]/div/div/div/button")));
-        fileOption.click();
-
-        WebElement fileLink = wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Assignment")));
-        fileLink.click();
-
-        driver.findElement(By.id("id_name")).sendKeys("Assignment " + testCaseId);
+        WebElement settingsTab = wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Settings")));
+        if (settingsTab.isDisplayed() && settingsTab.isEnabled()) {
+            ((JavascriptExecutor) driver).executeScript("arguments[0].click();", settingsTab);
+        }
 
         // Set "Allow submissions from" date
         if (testData.allowSubmissionsFrom.enabled) {
@@ -122,7 +119,7 @@ public class CreateAssignment {
             WebElement assignmentText = pageHeader.findElement(By.cssSelector("div.text-muted.text-uppercase.small.line-height-3"));
             WebElement assignmentTitle = pageHeader.findElement(By.cssSelector("h1.h2.mb-0"));
             String expectedAssignmentText = testData.expectedResult.signal.message;
-            String expectedAssignmentTitle = String.format("Assignment %s", testCaseId);
+            String expectedAssignmentTitle = "Timed Task";
 
             if (!assignmentText.getText().equals(expectedAssignmentText)) {
                 throw new AssertionError("Expected text: " + expectedAssignmentText + ", but got: " + assignmentText.getText());
@@ -132,7 +129,7 @@ public class CreateAssignment {
                 throw new AssertionError("Expected title: " + expectedAssignmentTitle + ", but got: " + assignmentTitle.getText());
             }
 
-            System.out.println("Test passed successfully, test name: Create Assignment " + testCaseId);
+            System.out.println("Test passed successfully, test name: Update Assignment " + testCaseId);
         } else if (Objects.equals(testData.expectedResult.result, "failed")) {
             String expectedErrorId = testData.expectedResult.signal.id;
             String expectedErrorText = testData.expectedResult.signal.message;
@@ -142,9 +139,9 @@ public class CreateAssignment {
                 throw new AssertionError("Expected error text: " + expectedErrorText + ", but got: " + errorText.getText());
             }
 
-            System.out.println("Test passed successfully, test name: Create Assignment " + testCaseId);
+            System.out.println("Test passed successfully, test name: Update Assignment " + testCaseId);
         } else {
-            System.out.println("Test failed, test name: Create Assignment " + testCaseId);
+            System.out.println("Test failed, test name: Update Assignment " + testCaseId);
         }
 
         // Close the browser

@@ -1,0 +1,169 @@
+{
+  "TC01": {
+    "description": "Update an assignment successfully",
+    "allowSubmissionsFrom": {
+      "enabled": true,
+      "day": 1,
+      "month": "December",
+      "year": 2024,
+      "hour": 0,
+      "minute": 0
+    },
+    "dueDate": {
+      "enabled": true,
+      "day": 9,
+      "month": "December",
+      "year": 2024,
+      "hour": 0,
+      "minute": 0
+    },
+    "cutOffDate": {
+      "enabled": true,
+      "day": 10,
+      "month": "December",
+      "year": 2024,
+      "hour": 12,
+      "minute": 57
+    },
+    "remindMeToGradeBy": {
+      "enabled": true,
+      "day": 22,
+      "month": "December",
+      "year": 2024,
+      "hour": 0,
+      "minute": 11
+    },
+    "expectedResult": {
+      "result": "passed",
+      "signal": {
+        "message": "ASSIGNMENT"
+      }
+    }
+  },
+  "TC02": {
+    "description": "Update an assignment cut-off date earlier than the due date.",
+    "allowSubmissionsFrom": {
+      "enabled": true,
+      "day": 2,
+      "month": "January",
+      "year": 2025,
+      "hour": 1,
+      "minute": 1
+    },
+    "dueDate": {
+      "enabled": true,
+      "day": 10,
+      "month": "January",
+      "year": 2025,
+      "hour": 1,
+      "minute": 1
+    },
+    "cutOffDate": {
+      "enabled": true,
+      "day": 2,
+      "month": "January",
+      "year": 2025,
+      "hour": 14,
+      "minute": 58
+    },
+    "remindMeToGradeBy": {
+      "enabled": true,
+      "day": 23,
+      "month": "January",
+      "year": 2025,
+      "hour": 1,
+      "minute": 12
+    },
+    "expectedResult": {
+      "result": "failed",
+      "signal": {
+        "id": "id_error_cutoffdate",
+        "message": "Cut-off date cannot be earlier than the due date."
+      }
+    }
+  },
+  "TC03": {
+    "description": "Update a new assignment due date earlier than the start date.",
+    "allowSubmissionsFrom": {
+      "enabled": true,
+      "day": 20,
+      "month": "November",
+      "year": 2024,
+      "hour": 0,
+      "minute": 0
+    },
+    "dueDate": {
+      "enabled": true,
+      "day": 19,
+      "month": "November",
+      "year": 2024,
+      "hour": 23,
+      "minute": 59
+    },
+    "cutOffDate": {
+      "enabled": true,
+      "day": 30,
+      "month": "November",
+      "year": 2024,
+      "hour": 23,
+      "minute": 59
+    },
+    "remindMeToGradeBy": {
+      "enabled": true,
+      "day": 1,
+      "month": "December",
+      "year": 2024,
+      "hour": 23,
+      "minute": 59
+    },
+    "expectedResult": {
+      "result": "failed",
+      "signal": {
+        "id": "id_error_duedate",
+        "message": "Due date must be after the allow submissions from date."
+      }
+    }
+  },
+  "TC04": {
+    "description": "Update a new assignment with a reminder date earlier than the due date.",
+    "allowSubmissionsFrom": {
+      "enabled": true,
+      "day": 20,
+      "month": "December",
+      "year": 2024,
+      "hour": 0,
+      "minute": 0
+    },
+    "dueDate": {
+      "enabled": true,
+      "day": 19,
+      "month": "December",
+      "year": 2024,
+      "hour": 23,
+      "minute": 59
+    },
+    "cutOffDate": {
+      "enabled": true,
+      "day": 26,
+      "month": "November",
+      "year": 2024,
+      "hour": 23,
+      "minute": 59
+    },
+    "remindMeToGradeBy": {
+      "enabled": true,
+      "day": 18,
+      "month": "November",
+      "year": 2024,
+      "hour": 23,
+      "minute": 59
+    },
+    "expectedResult": {
+      "result": "failed",
+      "signal": {
+        "id": "id_error_gradingduedate",
+        "message": "Remind me to grade by date cannot be earlier than the due date."
+      }
+    }
+  }
+}

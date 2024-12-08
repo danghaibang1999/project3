@@ -7,9 +7,12 @@ import java.io.IOException;
 import java.util.Map;
 
 public class TestData {
-    public static Map<String, TestCase> loadTestData() throws IOException {
+    public static Map<String, TestCase> loadTestData(boolean isCreated) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
-        return mapper.readValue(new File("src/main/resources/createAssignmentData.json"), mapper.getTypeFactory().constructMapType(Map.class, String.class, TestCase.class));
+        if (isCreated) {
+            return mapper.readValue(new File("src/main/resources/createAssignmentData.json"), mapper.getTypeFactory().constructMapType(Map.class, String.class, TestCase.class));
+        }
+        return mapper.readValue(new File("src/main/resources/updateAssignmentData.json"), mapper.getTypeFactory().constructMapType(Map.class, String.class, TestCase.class));
     }
 
     public static class DateTime {
